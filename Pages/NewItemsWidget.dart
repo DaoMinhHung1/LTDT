@@ -33,7 +33,7 @@ class NewItemsWidget extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/trasua1,jpg",
+                          "images/trasua1.jpg",
                           height: 120,
                           width: 150,
                         ),
@@ -126,7 +126,7 @@ class NewItemsWidget extends StatelessWidget {
                       child: Container(
                         alignment: Alignment.center,
                         child: Image.asset(
-                          "images/trasua1,jpg",
+                          "images/trasua1.jpg",
                           height: 120,
                           width: 150,
                         ),
