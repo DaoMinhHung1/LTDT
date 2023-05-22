@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:duan1/Widgets/AppBarWidget.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:duan1/Widgets/DrawerWidget.dart';
+import 'package:duan1/Widgets/CartBotomNavBar.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -26,13 +30,15 @@ class _CartPageState extends State<CartPage> {
                       left: 10,
                       bottom: 10,
                     ),
-                    child: Text("Oreder List", style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    child: Text(
+                      "Oreder List",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-              //Item1
+                  //Item1
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 9),
                     child: Container(
@@ -55,7 +61,7 @@ class _CartPageState extends State<CartPage> {
                           Container(
                             alignment: Alignment.center,
                             child: Image.asset(
-                              "images/trasua1.jpg",
+                              "images/trasua1.png",
                               height: 80,
                               width: 150,
                             ),
@@ -63,8 +69,8 @@ class _CartPageState extends State<CartPage> {
                           Container(
                             width: 190,
                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               mainAxisAlignment: MainAxiAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   "Hot Pizza",
@@ -84,8 +90,8 @@ class _CartPageState extends State<CartPage> {
                                   "\$10",
                                   style: TextStyle(
                                     fontSize: 14,
-                                     fontWeight: FontWeight.bold,
-                                     color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
                                   ),
                                 ),
                               ],
@@ -100,29 +106,31 @@ class _CartPageState extends State<CartPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
-                                 mainAxisAlignment: 
-                                     MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(
                                     CupertinoIcons.minus,
                                     color: Colors.white,
                                   ),
-                                  Text("2",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                   fontWeight: FontWeight.bold,
-                                   color: Colors.white),
-                                   ),
-                                   Icon(
+                                  Text(
+                                    "2",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  Icon(
                                     CupertinoIcons.minus,
                                     color: Colors.white,
                                   ),
-                                  Text("2",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                   fontWeight: FontWeight.bold,
-                                   color: Colors.white),
-                                   ),
+                                  Text(
+                                    "2",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
                                 ],
                               ),
                             ),
@@ -132,7 +140,7 @@ class _CartPageState extends State<CartPage> {
                     ),
                   ),
 
-              //Item2
+                  //Item2
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 9),
                     child: Container(
@@ -155,7 +163,7 @@ class _CartPageState extends State<CartPage> {
                           Container(
                             alignment: Alignment.center,
                             child: Image.asset(
-                              "images/trasua2.jpg",
+                              "images/trasua2.png",
                               height: 80,
                               width: 150,
                             ),
@@ -163,8 +171,8 @@ class _CartPageState extends State<CartPage> {
                           Container(
                             width: 190,
                             child: Column(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               mainAxisAlignment: MainAxiAlignment.spaceAround,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Text(
                                   "Tra Sua 2",
@@ -184,8 +192,8 @@ class _CartPageState extends State<CartPage> {
                                   "\$10",
                                   style: TextStyle(
                                     fontSize: 14,
-                                     fontWeight: FontWeight.bold,
-                                     color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red,
                                   ),
                                 ),
                               ],
@@ -200,29 +208,31 @@ class _CartPageState extends State<CartPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Column(
-                                 mainAxisAlignment: 
-                                     MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Icon(
                                     CupertinoIcons.minus,
                                     color: Colors.white,
                                   ),
-                                  Text("2",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                   fontWeight: FontWeight.bold,
-                                   color: Colors.white),
-                                   ),
-                                   Icon(
+                                  Text(
+                                    "2",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                  Icon(
                                     CupertinoIcons.minus,
                                     color: Colors.white,
                                   ),
-                                  Text("2",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                   fontWeight: FontWeight.bold,
-                                   color: Colors.white),
-                                   ),
+                                  Text(
+                                    "2",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
                                 ],
                               ),
                             ),
@@ -230,7 +240,7 @@ class _CartPageState extends State<CartPage> {
                         ],
                       ),
                     ),
-                  ),  
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                     child: Container(
@@ -260,79 +270,73 @@ class _CartPageState extends State<CartPage> {
                                   "Items:",
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                 Text(
+                                Text(
                                   "10",
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ],
                             ),
                           ),
-
                           Divider(
                             color: Colors.black,
                           ),
-
                           Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 10,
                             ),
                             child: Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Sub-Total:",
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                 Text(
+                                Text(
                                   "\$60",
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ],
                             ),
                           ),
-
                           Divider(
                             color: Colors.black,
                           ),
-
                           Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 10,
                             ),
                             child: Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Delievery:",
                                   style: TextStyle(fontSize: 20),
                                 ),
-                                 Text(
+                                Text(
                                   "\$20",
                                   style: TextStyle(fontSize: 20),
                                 ),
                               ],
                             ),
                           ),
-
                           Divider(
                             color: Colors.black,
                           ),
-
                           Padding(
                             padding: EdgeInsets.symmetric(
                               vertical: 10,
                             ),
                             child: Row(
-                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
                                   "Total:",
                                   style: TextStyle(
                                     fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                 Text(
+                                Text(
                                   "\$80",
                                   style: TextStyle(
                                     fontSize: 20,
