@@ -1,13 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quanlycafe/Widgets/DetailWidget.dart';
 
-class ItemsWidget extends StatelessWidget {
+class ToppingWidget extends StatelessWidget {
   List img = [
-    "cafe1",
-    "cafe2",
-    "cafe3",
-    "cafe4",
+    "sua1",
+    "sua2",
+    "sua3",
   ];
 
   @override
@@ -65,14 +64,14 @@ class ItemsWidget extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Colors.black87,
                           ),
                         ),
                         Text(
                           "Best Coffee",
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.black87,
+                            color: Colors.white60,
                           ),
                         )
                       ],

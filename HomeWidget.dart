@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_project/Widgets/HomeBottom.dart';
-import 'package:my_project/Widgets/ItemWidget.dart';
+import 'package:flutter/services.dart';
+import 'package:quanlycafe/Widgets/HomeBottom.dart';
+import 'package:quanlycafe/Widgets/ItemWidget.dart';
+import 'package:quanlycafe/Widgets/ToppingWidget.dart';
+import 'package:quanlycafe/Widgets/AppBarWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this, initialIndex: 0);
+    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
     _tabController.addListener(_handleTabSelection);
     super.initState();
   }
@@ -30,6 +33,11 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
+  List<Widget> _widgets = [
+    ItemsWidget(),
+    ToppingWidget(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,39 +46,42 @@ class _HomeScreenState extends State<HomeScreen>
           padding: EdgeInsets.only(top: 15),
           child: ListView(
             children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.sort_rounded,
-                        color: Colors.white.withOpacity(0.5),
-                        size: 35,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.notifications,
-                        color: Colors.white.withOpacity(0.5),
-                        size: 35,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 15),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //     children: [
+              //       InkWell(
+              //         onTap: () {},
+              //         child: Icon(
+              //           Icons.sort_rounded,
+              //           color: Colors.white.withOpacity(0.5),
+              //           size: 35,
+              //         ),
+              //       ),
+              //       InkWell(
+              //         onTap: () {},
+              //         child: Icon(
+              //           Icons.notifications,
+              //           color: Colors.white.withOpacity(0.5),
+              //           size: 35,
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               SizedBox(height: 30),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Text(
-                  "It's a Great Day for Coffee",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500,
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Menu Coffee",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
@@ -80,27 +91,34 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 60,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 50, 54, 56),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 10,
+                        offset: Offset(0, 3),
+                      )
+                    ]),
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Find your Coffe",
                       hintStyle: TextStyle(
-                        color: Colors.white.withOpacity(0.5),
+                        color: Colors.black45,
                       ),
                       prefixIcon: Icon(
                         Icons.search,
                         size: 30,
-                        color: Colors.white.withOpacity(0.5),
+                        color: Colors.red,
                       )),
                 ),
               ),
               TabBar(
                   controller: _tabController,
                   labelColor: Color(0xFFE57734),
-                  unselectedLabelColor: Colors.white.withOpacity(0.5),
+                  unselectedLabelColor: Colors.black,
                   isScrollable: true,
                   indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
@@ -114,21 +132,30 @@ class _HomeScreenState extends State<HomeScreen>
                   tabs: [
                     Tab(text: "Menu"),
                     Tab(text: "Topping"),
-                    Tab(text: "Sale"),
+                    // Tab(text: "Sale"),
                   ]),
-              SizedBox(height: 10),
-              Center(
-                child: [
-                  ItemsWidget(),
-                  ItemsWidget(),
-                  ItemsWidget(),
-                ][_tabController.index],
-              )
+              // SizedBox(height: 10),
+              // Center(
+              //   child: [
+              //     ItemsWidget(),
+              //     ItemsWidget(),
+              //     ItemsWidget(),
+              //   ][_tabController.index],
+              // ),
+              // SizedBox(height: 10),
+              // Center(
+              //   child: [
+              //     ToppingWidget(),
+              //     ToppingWidget(),
+              //     ToppingWidget(),
+              //   ][_tabController.index],
+              // )
+              Center(child: _widgets[_tabController.index]),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: HomeBottomBar(),
+      // bottomNavigationBar: HomeBottomBar(),
     );
   }
 }
