@@ -1,9 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:quanlycafe/Widgets/HomeBottom.dart';
-import 'package:quanlycafe/Widgets/ItemWidget.dart';
+import 'package:quanlycafe/Widgets/ProductWidget.dart';
 import 'package:quanlycafe/Widgets/ToppingWidget.dart';
-import 'package:quanlycafe/Widgets/AppBarWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -33,57 +32,51 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
-  List<Widget> _widgets = [
-    ItemsWidget(),
-    ToppingWidget(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(top: 15),
+          padding: EdgeInsets.only(top: 30, bottom: 20),
           child: ListView(
             children: [
-              // Padding(
-              //   padding: EdgeInsets.symmetric(horizontal: 15),
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       InkWell(
-              //         onTap: () {},
-              //         child: Icon(
-              //           Icons.sort_rounded,
-              //           color: Colors.white.withOpacity(0.5),
-              //           size: 35,
-              //         ),
-              //       ),
-              //       InkWell(
-              //         onTap: () {},
-              //         child: Icon(
-              //           Icons.notifications,
-              //           color: Colors.white.withOpacity(0.5),
-              //           size: 35,
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, "/");
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 25),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back_ios_new,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               SizedBox(height: 30),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Menu Coffee",
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500,
+              const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text(
+                      "Trà sữa Hot & Cold",
+                      style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -91,34 +84,27 @@ class _HomeScreenState extends State<HomeScreen>
                 height: 60,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 10,
-                        offset: Offset(0, 3),
-                      )
-                    ]),
+                  color: Color.fromARGB(255, 50, 54, 56),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: TextFormField(
                   decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: "Find your Coffe",
                       hintStyle: TextStyle(
-                        color: Colors.black45,
+                        color: Colors.white.withOpacity(0.5),
                       ),
                       prefixIcon: Icon(
                         Icons.search,
                         size: 30,
-                        color: Colors.red,
+                        color: Colors.white.withOpacity(0.5),
                       )),
                 ),
               ),
               TabBar(
                   controller: _tabController,
                   labelColor: Color(0xFFE57734),
-                  unselectedLabelColor: Colors.black,
+                  unselectedLabelColor: Colors.black.withOpacity(0.5),
                   isScrollable: true,
                   indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
@@ -134,23 +120,99 @@ class _HomeScreenState extends State<HomeScreen>
                     Tab(text: "Topping"),
                     // Tab(text: "Sale"),
                   ]),
-              // SizedBox(height: 10),
-              // Center(
-              //   child: [
-              //     ItemsWidget(),
-              //     ItemsWidget(),
-              //     ItemsWidget(),
-              //   ][_tabController.index],
-              // ),
-              // SizedBox(height: 10),
-              // Center(
-              //   child: [
-              //     ToppingWidget(),
-              //     ToppingWidget(),
-              //     ToppingWidget(),
-              //   ][_tabController.index],
-              // )
-              Center(child: _widgets[_tabController.index]),
+              SizedBox(height: 10),
+              Center(
+                child: [
+                  //Menu
+                  Container(
+                    height: 220,
+                    child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        physics: BouncingScrollPhysics(),
+                        child: StreamBuilder(
+                            stream: FirebaseFirestore.instance
+                                .collection("product")
+                                .snapshots(),
+                            builder: (context,
+                                AsyncSnapshot<QuerySnapshot> streamSnapshort) {
+                              if (!streamSnapshort.hasData) {
+                                return Center(
+                                    child: const CircularProgressIndicator());
+                              }
+                              return Row(
+                                children: streamSnapshort.data!.docs.map((doc) {
+                                  return ProductWidget(
+                                    productId: doc["productId"],
+                                    productName: doc["productName"],
+                                    productImage: doc["productImage"],
+                                    productPrice: doc["productPrice"],
+                                    productDes: doc["productDes"],
+                                  );
+                                }).toList(),
+                              );
+                            })),
+                  ),
+                  //Topping
+                  Container(
+                    height: 220,
+                    child: StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection("topping")
+                            .snapshots(),
+                        builder: (context,
+                            AsyncSnapshot<QuerySnapshot> streamSnapshort) {
+                          if (!streamSnapshort.hasData) {
+                            return Center(
+                                child: const CircularProgressIndicator());
+                          }
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            physics: BouncingScrollPhysics(),
+                            itemCount: streamSnapshort.data!.docs.length,
+                            itemBuilder: (ctx, index) {
+                              return ToppingWidget(
+                                toppingName: streamSnapshort.data!.docs[index]
+                                    ["toppingName"],
+                                toppingImage: streamSnapshort.data!.docs[index]
+                                    ["toppingImage"],
+                                toppingPrice: streamSnapshort.data!.docs[index]
+                                    ["toppingPrice"],
+                                toppingDes: streamSnapshort.data!.docs[index]
+                                    ["toppingDes"],
+                              );
+                            },
+                          );
+                        }),
+                  ),
+                  //sale
+                  // Container(
+                  //   height: 220,
+                  //   child: SingleChildScrollView(
+                  //       scrollDirection: Axis.horizontal,
+                  //       physics: BouncingScrollPhysics(),
+                  //       child: StreamBuilder(
+                  //           stream: FirebaseFirestore.instance
+                  //               .collection("sale")
+                  //               .snapshots(),
+                  //           builder: (context,
+                  //               AsyncSnapshot<QuerySnapshot> streamSnapshort) {
+                  //             if (!streamSnapshort.hasData) {
+                  //               return Center(
+                  //                   child: const CircularProgressIndicator());
+                  //             }
+                  //             return Row(
+                  //               children: streamSnapshort.data!.docs.map((doc) {
+                  //                 return SaleWidget(
+                  //                   saleName: doc["saleName"],
+                  //                   saleImage: doc["saleImage"],
+                  //                   salePrice: doc["salePrice"],
+                  //                 );
+                  //               }).toList(),
+                  //             );
+                  //           })),
+                  // ),
+                ][_tabController.index],
+              )
             ],
           ),
         ),
