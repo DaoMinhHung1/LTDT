@@ -1,12 +1,29 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quanlycafe/Widgets/my_button.dart';
 
 class DetailItemScreen extends StatelessWidget {
-  String img;
-  DetailItemScreen(this.img);
+  final String productImage;
+  final String productName;
+  final String productPrice;
+  final String productDes;
+  final String productId;
+
+  const DetailItemScreen({
+    Key? key,
+    required this.productImage,
+    required this.productName,
+    required this.productPrice,
+    required this.productDes,
+    required this.productId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(productId);
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -28,8 +45,8 @@ class DetailItemScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 50),
                 Center(
-                  child: Image.asset(
-                    "images/$img.png",
+                  child: Image.network(
+                    productImage,
                     width: MediaQuery.of(context).size.width / 1.2,
                   ),
                 ),
@@ -40,21 +57,21 @@ class DetailItemScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Best Coffee",
+                        productName,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.4),
+                          color: Colors.black.withOpacity(0.4),
                           letterSpacing: 3,
                         ),
                       ),
                       SizedBox(height: 20),
-                      Text(
-                        img,
-                        style: TextStyle(
-                          fontSize: 30,
-                          letterSpacing: 1,
-                          color: Colors.white,
-                        ),
-                      ),
+                      // Image.network(
+                      //   productImage,
+                      //   // style: TextStyle(
+                      //   //   fontSize: 30,
+                      //   //   letterSpacing: 1,
+                      //   //   color: Colors.white,
+                      //   // ),
+                      // ),
                       SizedBox(height: 25),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -75,13 +92,13 @@ class DetailItemScreen extends StatelessWidget {
                                   Icon(
                                     CupertinoIcons.minus,
                                     size: 18,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   ),
                                   SizedBox(width: 15),
                                   Text(
                                     "1",
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.black,
                                       fontSize: 16,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -90,17 +107,17 @@ class DetailItemScreen extends StatelessWidget {
                                   Icon(
                                     CupertinoIcons.minus,
                                     size: 18,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                   )
                                 ],
                               ),
                             ),
                             Text(
-                              "\$ 30.20",
+                              productPrice,
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             )
                           ],
@@ -108,11 +125,11 @@ class DetailItemScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        "Coffe is a major source of antioxidants in the diet",
+                        productDes,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white.withOpacity(0.4),
+                          color: Colors.black.withOpacity(0.4),
                         ),
                       ),
                       SizedBox(height: 20),
@@ -123,7 +140,7 @@ class DetailItemScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                           SizedBox(height: 20),
@@ -132,7 +149,7 @@ class DetailItemScreen extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                              color: Colors.black,
                             ),
                           ),
                         ],
@@ -150,15 +167,24 @@ class DetailItemScreen extends StatelessWidget {
                                 color: Color.fromARGB(255, 50, 54, 56),
                                 borderRadius: BorderRadius.circular(18),
                               ),
-                              child: Text(
-                                "Add to cart ",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 1,
-                                ),
-                              ),
+                              // child: MyButton(
+                              //   onPressed: () {
+                              //     FirebaseFirestore.instance
+                              //         .collection("cart")
+                              //         .doc(FirebaseAuth
+                              //             .instance.currentUser!.uid)
+                              //         .collection("userCart")
+                              //         .doc(productId)
+                              //         .set({
+                              //       "productId": productId,
+                              //       "productName": productName,
+                              //       "productImage": productImage,
+                              //       "productPrice": productPrice,
+                              //       "productDes": productDes,
+                              //     });
+                              //   },
+                              //   text: '',
+                              // ),
                             ),
                             Container(
                                 padding: EdgeInsets.symmetric(
@@ -169,7 +195,7 @@ class DetailItemScreen extends StatelessWidget {
                                 ),
                                 child: Icon(
                                   Icons.favorite_outline,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 )),
                           ],
                         ),
