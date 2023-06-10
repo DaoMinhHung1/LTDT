@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quanlycafe/Widgets/ProductWidget.dart';
-import 'package:quanlycafe/Widgets/ToppingWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -13,24 +12,24 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-  @override
-  void initState() {
-    _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
-    _tabController.addListener(_handleTabSelection);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   _tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+  //   _tabController.addListener(_handleTabSelection);
+  //   super.initState();
+  // }
 
-  _handleTabSelection() {
-    if (_tabController.indexIsChanging) {
-      setState(() {});
-    }
-  }
+  // _handleTabSelection() {
+  //   if (_tabController.indexIsChanging) {
+  //     setState(() {});
+  //   }
+  // }
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _tabController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -101,118 +100,38 @@ class _HomeScreenState extends State<HomeScreen>
                       )),
                 ),
               ),
-              TabBar(
-                  controller: _tabController,
-                  labelColor: Color(0xFFE57734),
-                  unselectedLabelColor: Colors.black.withOpacity(0.5),
-                  isScrollable: true,
-                  indicator: UnderlineTabIndicator(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: Color(0xFFE57734),
-                    ),
-                  ),
-                  labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                  tabs: [
-                    Tab(text: "Menu"),
-                    Tab(text: "Topping"),
-                    // Tab(text: "Sale"),
-                  ]),
               SizedBox(height: 10),
               Center(
-                child: [
-                  //Menu
-                  Container(
+                child: Container(
                     height: 220,
                     child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
                         physics: BouncingScrollPhysics(),
                         child: StreamBuilder(
-                            stream: FirebaseFirestore.instance
-                                .collection("product")
-                                .snapshots(),
-                            builder: (context,
-                                AsyncSnapshot<QuerySnapshot> streamSnapshort) {
-                              if (!streamSnapshort.hasData) {
-                                return Center(
-                                    child: const CircularProgressIndicator());
-                              }
-                              return Row(
-                                children: streamSnapshort.data!.docs.map((doc) {
-                                  return ProductWidget(
-                                    productId: doc["productId"],
-                                    productName: doc["productName"],
-                                    productImage: doc["productImage"],
-                                    productPrice: doc["productPrice"],
-                                    productDes: doc["productDes"],
-                                  );
-                                }).toList(),
-                              );
-                            })),
-                  ),
-                  //Topping
-                  Container(
-                    height: 220,
-                    child: StreamBuilder(
-                        stream: FirebaseFirestore.instance
-                            .collection("topping")
-                            .snapshots(),
-                        builder: (context,
-                            AsyncSnapshot<QuerySnapshot> streamSnapshort) {
-                          if (!streamSnapshort.hasData) {
-                            return Center(
-                                child: const CircularProgressIndicator());
-                          }
-                          return ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            physics: BouncingScrollPhysics(),
-                            itemCount: streamSnapshort.data!.docs.length,
-                            itemBuilder: (ctx, index) {
-                              return ToppingWidget(
-                                toppingName: streamSnapshort.data!.docs[index]
-                                    ["toppingName"],
-                                toppingImage: streamSnapshort.data!.docs[index]
-                                    ["toppingImage"],
-                                toppingPrice: streamSnapshort.data!.docs[index]
-                                    ["toppingPrice"],
-                                toppingDes: streamSnapshort.data!.docs[index]
-                                    ["toppingDes"],
-                              );
-                            },
-                          );
-                        }),
-                  ),
-                  //sale
-                  // Container(
-                  //   height: 220,
-                  //   child: SingleChildScrollView(
-                  //       scrollDirection: Axis.horizontal,
-                  //       physics: BouncingScrollPhysics(),
-                  //       child: StreamBuilder(
-                  //           stream: FirebaseFirestore.instance
-                  //               .collection("sale")
-                  //               .snapshots(),
-                  //           builder: (context,
-                  //               AsyncSnapshot<QuerySnapshot> streamSnapshort) {
-                  //             if (!streamSnapshort.hasData) {
-                  //               return Center(
-                  //                   child: const CircularProgressIndicator());
-                  //             }
-                  //             return Row(
-                  //               children: streamSnapshort.data!.docs.map((doc) {
-                  //                 return SaleWidget(
-                  //                   saleName: doc["saleName"],
-                  //                   saleImage: doc["saleImage"],
-                  //                   salePrice: doc["salePrice"],
-                  //                 );
-                  //               }).toList(),
-                  //             );
-                  //           })),
-                  // ),
-                ][_tabController.index],
-              )
+                          stream: FirebaseFirestore.instance
+                              .collection("product")
+                              .snapshots(),
+                          builder: (context,
+                              AsyncSnapshot<QuerySnapshot> streamSnapshort) {
+                            if (!streamSnapshort.hasData) {
+                              return Center(
+                                  child: const CircularProgressIndicator());
+                            }
+                            return Row(
+                              children: streamSnapshort.data!.docs.map((doc) {
+                                return ProductWidget(
+                                  productId: doc["productId"],
+                                  productName: doc["productName"],
+                                  productImage: doc["productImage"],
+                                  productPrice: doc["productPrice"],
+                                  productDes: doc["productDes"],
+                                  productQuantity: doc["productQuantity"],
+                                );
+                              }).toList(),
+                            );
+                          },
+                        ))),
+              ),
             ],
           ),
         ),

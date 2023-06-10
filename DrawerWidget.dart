@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quanlycafe/Login/login_page.dart';
 
 class DrawerWidget extends StatelessWidget {
   @override
@@ -18,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ),
               accountEmail: Text(
-                "....@gmail.com",
+                FirebaseAuth.instance.currentUser!.email!,
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -28,8 +30,10 @@ class DrawerWidget extends StatelessWidget {
               ),
             ),
           ),
-
           ListTile(
+            onTap: () {
+              Navigator.pushNamed(context, "/");
+            },
             leading: Icon(
               CupertinoIcons.home,
               color: Colors.red,
@@ -74,6 +78,15 @@ class DrawerWidget extends StatelessWidget {
             ),
           ),
           ListTile(
+            onTap: () {
+              FirebaseAuth.instance.signOut().then(
+                    (value) => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => LoginPage(),
+                      ),
+                    ),
+                  );
+            },
             leading: Icon(
               Icons.exit_to_app,
               color: Colors.red,

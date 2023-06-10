@@ -29,7 +29,9 @@ class _CartPageState extends State<CartPage> {
               onPressed: () {
                 RoutingPage.goTonext(
                   context: context,
-                  navigateTo: CheckOutPage(),
+                  navigateTo: CheckOutPage(
+                    cartData: {},
+                  ),
                 );
               },
             ),
